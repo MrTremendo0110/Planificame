@@ -4,8 +4,6 @@ public class principal {
         //registro
 
 
-
-
         System.out.println("¿Que funcion desea realizar?");
         System.out.println("1. Horario");
         System.out.println("2. Calendario");
@@ -16,18 +14,17 @@ public class principal {
         Scanner sc = new Scanner(System.in);
         String opcion = sc.next();
 
-        switch(opcion){
+        switch (opcion) {
             case "1":
-                horario();
                 break;
             case "2":
-                calendario();
+                calendario.main();
                 break;
             case "3":
-                tareas();
+                tarea.main();
                 break;
             case "4":
-                alumno();
+                alumno.main();
                 break;
             default:
                 System.out.println("Hasta luego.");
@@ -36,30 +33,9 @@ public class principal {
 
 
     }
-
-    private static void horario() {
-
-
-
-    }
-
-    private static void calendario() {
-
-
-
-    }
-    private static void tareas() {
-
-
-
-    }
-    private static void alumno() {
-
-
-    }
-
-
 }
+
+
 
 
 

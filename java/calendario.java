@@ -7,7 +7,7 @@ public class calendario {
     // Scanner global para leer entrada del usuario
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main() {
         // Definir constantes
         final int MAX_EVENTOS = 10; // Número máximo de eventos
 

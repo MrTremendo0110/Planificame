@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class alumno {
 
-    public static void main(String[] args) {
+    public static void main() {
         // Se define un tamaño máximo de 10 materias y 3 calificaciones por materia.
         // Los arr se declaran con un tamaño de 10 materias
         String[] materias = new String[10];

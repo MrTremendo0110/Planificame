@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class tarea {
-    public static void main(String args[]) {
+    public static void main() {
         //definimos una constante
         final int MAX_TAREAS = 50;
         // Arrays paralelos para almacenar los datos
