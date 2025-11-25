@@ -1,17 +1,18 @@
 import java.util.Scanner;
 import java.time.LocalDateTime;
-import java.time.Duration; // Importamos Duration para cálculos exactos
+import java.time.Duration;
 
 public class calendario {
 
     // Scanner global para leer entrada del usuario
     static Scanner scanner = new Scanner(System.in);
 
+    // Se añade (String[] args) para que sea compatible con la llamada estándar desde Principal
     public static void main() {
         // Definir constantes
-        final int MAX_EVENTOS = 10; // Número máximo de eventos
+        final int MAX_EVENTOS = 10;
 
-        // Definir arreglos (Dimension)
+        // Definir arreglos
         String[] titulosEventos = new String[MAX_EVENTOS];
         String[] tiposEventos = new String[MAX_EVENTOS];
         int[] diasEventos = new int[MAX_EVENTOS];
@@ -24,19 +25,19 @@ public class calendario {
         int contadorEventos = 0;
         int opcionMenu = 0;
 
-        // Mostrar fecha de inicio al arrancar
+        // Mostrar fecha de inicio al arrancar el módulo
         LocalDateTime inicio = LocalDateTime.now();
         System.out.println("--- SISTEMA DE CALENDARIO ---");
-        System.out.println("Iniciado el: " + inicio.getDayOfMonth() + "/" + inicio.getMonthValue() + "/" + inicio.getYear());
+        System.out.println("Fecha actual: " + inicio.getDayOfMonth() + "/" + inicio.getMonthValue() + "/" + inicio.getYear());
         esperarTecla();
 
         do {
-            // Mostrar menú
+            // Mostrar menú del módulo
             limpiarPantalla();
             System.out.println("--- MÓDULO DE CALENDARIO ---");
             System.out.println("1. Registrar nuevo evento");
             System.out.println("2. Ver eventos y cuenta regresiva");
-            System.out.println("3. Salir");
+            System.out.println("3. Volver al Menú Principal"); // Cambio de texto
             System.out.println("----------------------------");
             System.out.print("Elija una opción: ");
 
@@ -49,7 +50,7 @@ public class calendario {
 
             switch (opcionMenu) {
                 case 1:
-                    // Registrar nuevo evento
+                    // --- Registrar nuevo evento ---
                     if (contadorEventos < MAX_EVENTOS) {
                         System.out.println("--- REGISTRAR NUEVO EVENTO ---");
 
@@ -59,25 +60,28 @@ public class calendario {
                         System.out.print("Tipo (Examen/Proyecto): ");
                         tiposEventos[contadorEventos] = scanner.nextLine();
 
-                        // Lectura de fecha
-                        System.out.print("Fecha de entrega (Día): ");
-                        diasEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
+                        // Validación básica de entrada para evitar errores al escribir texto en lugar de números
+                        try {
+                            System.out.print("Fecha de entrega (Día): ");
+                            diasEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
 
-                        System.out.print("Fecha de entrega (Mes): ");
-                        mesesEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Fecha de entrega (Mes): ");
+                            mesesEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
 
-                        System.out.print("Fecha de entrega (Año): ");
-                        aniosEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Fecha de entrega (Año): ");
+                            aniosEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
 
-                        // Lectura de hora
-                        System.out.print("Hora (0-23): ");
-                        horasEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Hora (0-23): ");
+                            horasEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
 
-                        System.out.print("Minutos (0-59): ");
-                        minutosEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Minutos (0-59): ");
+                            minutosEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
 
-                        contadorEventos++;
-                        System.out.println("Evento registrado con éxito.");
+                            contadorEventos++;
+                            System.out.println("Evento registrado con éxito.");
+                        } catch (Exception e) {
+                            System.out.println("Error al ingresar datos numéricos. El evento no se guardó.");
+                        }
                     } else {
                         System.out.println("No se pueden registrar más eventos.");
                     }
@@ -85,11 +89,10 @@ public class calendario {
                     break;
 
                 case 2:
-                    // Ver eventos
+                    // --- Ver eventos ---
                     limpiarPantalla();
                     System.out.println("--- EVENTOS REGISTRADOS ---");
 
-                    // Capturamos la fecha y hora EXACTA en el momento de la consulta
                     LocalDateTime ahoraMismo = LocalDateTime.now();
 
                     if (contadorEventos > 0) {
@@ -100,7 +103,6 @@ public class calendario {
                             System.out.println("Fecha límite: " + diasEventos[i] + "/" + mesesEventos[i] + "/" + aniosEventos[i] +
                                     " - " + String.format("%02d", horasEventos[i]) + ":" + String.format("%02d", minutosEventos[i]));
 
-                            // Pasamos la fecha actual REAL y los datos del evento
                             calcularCuentaRegresiva(ahoraMismo,
                                     diasEventos[i], mesesEventos[i], aniosEventos[i],
                                     horasEventos[i], minutosEventos[i]);
@@ -112,7 +114,9 @@ public class calendario {
                     break;
 
                 case 3:
-                    System.out.println("Saliendo del programa...");
+                    // Solo mostramos mensaje. Al salir del switch y fallar la condición del while,
+                    // el método termina y regresa a 'principal'.
+                    System.out.println("Volviendo al menú principal...");
                     break;
 
                 default:
@@ -123,38 +127,35 @@ public class calendario {
 
         } while (opcionMenu != 3);
 
-        scanner.close();
+        // ¡IMPORTANTE!
+        // NO cerramos scanner.close(); aquí.
+        // Si lo cerramos, 'principal' no podrá leer más opciones.
     }
 
-    // SubProceso actualizado para usar cálculos de tiempo reales de Java
+    // SubProceso para cálculos de tiempo
     public static void calcularCuentaRegresiva(LocalDateTime fechaActual, int diaB, int mesB, int anioB, int horaB, int minutoB) {
         try {
-            // Construimos la fecha del evento usando los datos guardados
             LocalDateTime fechaEvento = LocalDateTime.of(anioB, mesB, diaB, horaB, minutoB);
-
-            // Calculamos la duración exacta entre AHORA y el EVENTO
             Duration duracion = Duration.between(fechaActual, fechaEvento);
 
             if (duracion.isNegative() || duracion.isZero()) {
                 System.out.println(">> ESTADO: ¡El evento ya pasó o es ahora mismo!");
             } else {
-                // Extraemos los componentes de tiempo restantes
                 long dias = duracion.toDays();
-                long horas = duracion.toHoursPart();     // Parte de horas (Java 9+)
-                long minutos = duracion.toMinutesPart(); // Parte de minutos
-                long segundos = duracion.toSecondsPart(); // Parte de segundos
+                long horas = duracion.toHoursPart();
+                long minutos = duracion.toMinutesPart();
+                long segundos = duracion.toSecondsPart();
 
-                System.out.println(">> FALTAN: " + dias + " días, " + horas + " horas, " + minutos + " minutos y " + segundos + " segundos.");
+                System.out.println(">> FALTAN: " + dias + " días, " + horas + " horas, " + minutos + " minutos.");
             }
         } catch (Exception e) {
-            // Captura errores si el usuario metió una fecha inválida (ej: mes 13 o día 32)
-            System.out.println(">> ERROR: La fecha registrada para este evento no es válida (" + e.getMessage() + ")");
+            System.out.println(">> ERROR: Fecha inválida.");
         }
     }
 
     // Métodos auxiliares
     public static void limpiarPantalla() {
-        for (int i = 0; i < 50; i++) System.out.println();
+        for (int i = 0; i < 2; i++) System.out.println(); // Reducido para no perder contexto en consolas pequeñas
     }
 
     public static void esperarTecla() {

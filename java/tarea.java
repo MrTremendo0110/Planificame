@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class tarea {
+
+    // Se añade String[] args para compatibilidad con la llamada desde Principal
     public static void main() {
         //definimos una constante
         final int MAX_TAREAS = 50;
@@ -9,27 +11,32 @@ public class tarea {
         long[] tiemposVencimiento = new long[MAX_TAREAS]; // Tiempo en milisegundos
         //tareas
         int num_tareas = 0;
+
+        // NOTA: No cerraremos este scanner para no cortar la conexión con el Menú Principal
         Scanner sc = new Scanner(System.in);
-        //true para que se ejecute
+
+        //true para que se ejecute el ciclo local
         boolean corre = true;
 
+        System.out.println("********************************************************************************");
+        System.out.println("============   ||=========||     ||=======||     ||========       ||========||                       ");
+        System.out.println("     ||        ||         ||     ||       ||     ||               ||        ||           ");
+        System.out.println("     ||        ||=========||     ||=======||     ||=====          ||========||                ");
+        System.out.println("     ||        ||         ||     ||     \\ \\      ||               ||        ||           " );
+        System.out.println("     ||        ||         ||     ||      \\ \\     ||========       ||        ||               ");
+        System.out.println("*********************************************************************************");
+
+
         while (corre) {
-            System.out.println("********************************************************************************");
-            System.out.println("============   ||=========||     ||=======||     ||========       ||========||                       ");
-            System.out.println("     ||        ||         ||     ||       ||     ||               ||        ||           ");
-            System.out.println("     ||        ||=========||     ||=======||     ||=====          ||========||                ");
-            System.out.println("     ||        ||         ||     ||     \\ \\      ||               ||        ||           " );;
-            System.out.println("     ||        ||         ||     ||      \\ \\     ||========       ||        ||               ");;
-            System.out.println("*********************************************************************************");
             System.out.println("Presione un numero para realizar una funcion");
             System.out.println("1. Agregar una nueva tarea (D/H/M/S)");
-            System.out.println("2. Salir");
+            System.out.println("2. Volver al Menú Principal");
             System.out.println("3. Listar tareas pendientes");
 
             //opcion a elejir
             System.out.print("> ");
             String opcion = sc.next();
-            sc.nextLine(); // linea de espacio
+            sc.nextLine(); // Consumir salto de linea pendiente
 
             switch (opcion) {
                 case "1":
@@ -40,13 +47,13 @@ public class tarea {
 
                         try {
                             // Solicitar cada unidad de tiempo por separado
-                            System.out.print("Dias: ");
+                            System.out.print("Dias restantes: ");
                             long dias = Long.parseLong(sc.nextLine());
-                            System.out.print("Horas: ");
+                            System.out.print("Horas restantes: ");
                             long horas = Long.parseLong(sc.nextLine());
-                            System.out.print("Minutos: ");
+                            System.out.print("Minutos restantes: ");
                             long minutos = Long.parseLong(sc.nextLine());
-                            System.out.print("Segundos: ");
+                            System.out.print("Segundos restantes: ");
                             long segundos = Long.parseLong(sc.nextLine());
 
                             long duracionTotalMillis =
@@ -65,7 +72,7 @@ public class tarea {
                             tiemposVencimiento[num_tareas] = System.currentTimeMillis() + duracionTotalMillis;
 
                             num_tareas++;
-                            System.out.println("Tarea agregada con éxito.");
+                            System.out.println(">> Tarea agregada con éxito.");
 
                         } catch (NumberFormatException e) {
                             System.out.println("Error: Asegurese de ingresar solo números enteros válidos para el tiempo.");
@@ -73,11 +80,16 @@ public class tarea {
                     } else {
                         System.out.println("Limite de tareas alcanzado.");
                     }
+                    // Pausa visual para continuar
+                    System.out.println("(Presione Enter para continuar)");
+                    sc.nextLine();
                     break;
+
                 case "2":
-                    System.out.println("Saliendo del programa...");
-                    corre = false;
+                    System.out.println("Volviendo al menú principal...");
+                    corre = false; // Esto rompe el ciclo while local y regresa a 'principal'
                     break;
+
                 case "3":
                     System.out.println(">>>>> Tareas Pendientes <<<<");
                     if (num_tareas == 0) {
@@ -91,7 +103,7 @@ public class tarea {
                             if (restanteMillis <= 0) {
                                 tiempoFormateado = "¡TERMINADO!";
                             } else {
-                                // Lógica de formateo manual (copiada de la versión POO)
+                                // Lógica de formateo manual
                                 long segundos = restanteMillis / 1000;
                                 long minutos = segundos / 60;
                                 long horas = minutos / 60;
@@ -105,11 +117,18 @@ public class tarea {
                         }
                     }
                     System.out.println("--------------------------------------------------------------------------------*");
+                    // Pausa visual para continuar
+                    System.out.println("(Presione Enter para continuar)");
+                    sc.nextLine();
                     break;
+
                 default:
                     System.out.println("Escoja una opcion correcta.");
+                    // Pausa visual para ver el error
+                    System.out.println("(Presione Enter para continuar)");
+                    sc.nextLine();
             }
         }
-        sc.close();
+
     }
 }

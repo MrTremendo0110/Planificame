@@ -14,7 +14,7 @@ public class Horario {
 
     static String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
 
-    public static void main(String[] args) {
+    public static void main() {
 
         int opcion;
 
@@ -23,7 +23,7 @@ public class Horario {
             System.out.println("1.- Registro de horario escolar");
             System.out.println("2.- Registro de actividades extracurriculares");
             System.out.println("3.- Mostrar horarios registrados");
-            System.out.println("4.- Salir");
+            System.out.println("4.- Regresar al menu principal");
             System.out.print("Elige una opción: ");
 
             opcion = scanner.nextInt();
@@ -40,7 +40,7 @@ public class Horario {
                     mostrarHorarios();
                     break;
                 case 4:
-                    System.out.println("Adiós...");
+                    System.out.println("Regresando...");
                     break;
                 default:
                     System.out.println("Opción no válida.");
