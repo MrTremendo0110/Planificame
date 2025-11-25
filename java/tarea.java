@@ -2,20 +2,20 @@ import java.util.Scanner;
 
 public class tarea {
 
-    // Se añade String[] args para compatibilidad con la llamada desde Principal
+
     public static void main() {
-        //definimos una constante
+
         final int MAX_TAREAS = 50;
-        // Arrays paralelos para almacenar los datos
+
         String[] nombresTareas = new String[MAX_TAREAS];
-        long[] tiemposVencimiento = new long[MAX_TAREAS]; // Tiempo en milisegundos
-        //tareas
+        long[] tiemposVencimiento = new long[MAX_TAREAS];
+
         int num_tareas = 0;
 
-        // NOTA: No cerraremos este scanner para no cortar la conexión con el Menú Principal
+
         Scanner sc = new Scanner(System.in);
 
-        //true para que se ejecute el ciclo local
+
         boolean corre = true;
 
         System.out.println("********************************************************************************");
@@ -33,10 +33,10 @@ public class tarea {
             System.out.println("2. Volver al Menú Principal");
             System.out.println("3. Listar tareas pendientes");
 
-            //opcion a elejir
+
             System.out.print("> ");
             String opcion = sc.next();
-            sc.nextLine(); // Consumir salto de linea pendiente
+            sc.nextLine();
 
             switch (opcion) {
                 case "1":
@@ -46,7 +46,7 @@ public class tarea {
                         String tareaName = sc.nextLine();
 
                         try {
-                            // Solicitar cada unidad de tiempo por separado
+
                             System.out.print("Dias restantes: ");
                             long dias = Long.parseLong(sc.nextLine());
                             System.out.print("Horas restantes: ");
@@ -67,7 +67,7 @@ public class tarea {
                                 break;
                             }
 
-                            // Almacenar en los arrays paralelos
+
                             nombresTareas[num_tareas] = tareaName;
                             tiemposVencimiento[num_tareas] = System.currentTimeMillis() + duracionTotalMillis;
 
@@ -80,14 +80,14 @@ public class tarea {
                     } else {
                         System.out.println("Limite de tareas alcanzado.");
                     }
-                    // Pausa visual para continuar
+
                     System.out.println("(Presione Enter para continuar)");
                     sc.nextLine();
                     break;
 
                 case "2":
                     System.out.println("Volviendo al menú principal...");
-                    corre = false; // Esto rompe el ciclo while local y regresa a 'principal'
+                    corre = false;
                     break;
 
                 case "3":
@@ -117,14 +117,14 @@ public class tarea {
                         }
                     }
                     System.out.println("--------------------------------------------------------------------------------*");
-                    // Pausa visual para continuar
+
                     System.out.println("(Presione Enter para continuar)");
                     sc.nextLine();
                     break;
 
                 default:
                     System.out.println("Escoja una opcion correcta.");
-                    // Pausa visual para ver el error
+
                     System.out.println("(Presione Enter para continuar)");
                     sc.nextLine();
             }

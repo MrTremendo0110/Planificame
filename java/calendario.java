@@ -4,15 +4,15 @@ import java.time.Duration;
 
 public class calendario {
 
-    // Scanner global para leer entrada del usuario
+
     static Scanner scanner = new Scanner(System.in);
 
-    // Se añade (String[] args) para que sea compatible con la llamada estándar desde Principal
+
     public static void main() {
-        // Definir constantes
+
         final int MAX_EVENTOS = 10;
 
-        // Definir arreglos
+
         String[] titulosEventos = new String[MAX_EVENTOS];
         String[] tiposEventos = new String[MAX_EVENTOS];
         int[] diasEventos = new int[MAX_EVENTOS];
@@ -21,23 +21,23 @@ public class calendario {
         int[] horasEventos = new int[MAX_EVENTOS];
         int[] minutosEventos = new int[MAX_EVENTOS];
 
-        // Variables simples
+
         int contadorEventos = 0;
         int opcionMenu = 0;
 
-        // Mostrar fecha de inicio al arrancar el módulo
+
         LocalDateTime inicio = LocalDateTime.now();
         System.out.println("--- SISTEMA DE CALENDARIO ---");
         System.out.println("Fecha actual: " + inicio.getDayOfMonth() + "/" + inicio.getMonthValue() + "/" + inicio.getYear());
         esperarTecla();
 
         do {
-            // Mostrar menú del módulo
+
             limpiarPantalla();
             System.out.println("--- MÓDULO DE CALENDARIO ---");
             System.out.println("1. Registrar nuevo evento");
             System.out.println("2. Ver eventos y cuenta regresiva");
-            System.out.println("3. Volver al Menú Principal"); // Cambio de texto
+            System.out.println("3. Volver al Menú Principal");
             System.out.println("----------------------------");
             System.out.print("Elija una opción: ");
 
@@ -50,7 +50,7 @@ public class calendario {
 
             switch (opcionMenu) {
                 case 1:
-                    // --- Registrar nuevo evento ---
+
                     if (contadorEventos < MAX_EVENTOS) {
                         System.out.println("--- REGISTRAR NUEVO EVENTO ---");
 
@@ -60,7 +60,7 @@ public class calendario {
                         System.out.print("Tipo (Examen/Proyecto): ");
                         tiposEventos[contadorEventos] = scanner.nextLine();
 
-                        // Validación básica de entrada para evitar errores al escribir texto en lugar de números
+
                         try {
                             System.out.print("Fecha de entrega (Día): ");
                             diasEventos[contadorEventos] = Integer.parseInt(scanner.nextLine());
@@ -89,7 +89,6 @@ public class calendario {
                     break;
 
                 case 2:
-                    // --- Ver eventos ---
                     limpiarPantalla();
                     System.out.println("--- EVENTOS REGISTRADOS ---");
 
@@ -114,8 +113,7 @@ public class calendario {
                     break;
 
                 case 3:
-                    // Solo mostramos mensaje. Al salir del switch y fallar la condición del while,
-                    // el método termina y regresa a 'principal'.
+
                     System.out.println("Volviendo al menú principal...");
                     break;
 
@@ -127,12 +125,9 @@ public class calendario {
 
         } while (opcionMenu != 3);
 
-        // ¡IMPORTANTE!
-        // NO cerramos scanner.close(); aquí.
-        // Si lo cerramos, 'principal' no podrá leer más opciones.
+
     }
 
-    // SubProceso para cálculos de tiempo
     public static void calcularCuentaRegresiva(LocalDateTime fechaActual, int diaB, int mesB, int anioB, int horaB, int minutoB) {
         try {
             LocalDateTime fechaEvento = LocalDateTime.of(anioB, mesB, diaB, horaB, minutoB);
@@ -153,9 +148,8 @@ public class calendario {
         }
     }
 
-    // Métodos auxiliares
     public static void limpiarPantalla() {
-        for (int i = 0; i < 2; i++) System.out.println(); // Reducido para no perder contexto en consolas pequeñas
+        for (int i = 0; i < 2; i++) System.out.println();
     }
 
     public static void esperarTecla() {
