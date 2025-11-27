@@ -3,7 +3,6 @@ import java.util.*;
 public class Horario {
     static Scanner scanner = new Scanner(System.in);
 
-    // Variables globales para guardar horarios
     static String[] matEsc;
     static String[][] matHorEnt;
     static String[][] matHorSal;
@@ -13,7 +12,7 @@ public class Horario {
     static String[][] actHorSal;
 
     public static void main(String[] args) {
-        while(true){ // ciclo infinito hasta que el usuario decida salir
+        while(true){
             System.out.println("\n=== MENÚ PRINCIPAL ===");
             System.out.println("1.-Registro de horario escolar");
             System.out.println("2.-Registro de actividades extracurriculares");
@@ -22,7 +21,7 @@ public class Horario {
             System.out.print("Seleccione una opción: ");
 
             int opcOp = scanner.nextInt();
-            scanner.nextLine(); // limpiar buffer
+            scanner.nextLine();
 
             switch(opcOp){
                 case 1:
@@ -36,19 +35,19 @@ public class Horario {
                     break;
                 case 4:
                     System.out.println("¡Hasta luego!");
-                    return; // salir del programa
+                    return;
                 default:
                     System.out.println("Opción inválida, intente de nuevo.");
             }
         }
     }
 
-    // ------------------ REGISTRO DE MATERIAS ------------------
+    //REGISTRO DE MATERIAS
     public static void regHorEsc() {
         System.out.println("Haz seleccionado el registro de horario escolar");
         System.out.println("¿Cuántas materias está cursando?");
         int numMat = scanner.nextInt();
-        scanner.nextLine(); // limpiar buffer
+        scanner.nextLine();
 
         matEsc = new String[numMat];
         matHorEnt = new String[numMat][5];
@@ -79,12 +78,12 @@ public class Horario {
         System.out.println("Registro de materias completado.");
     }
 
-    // ------------------ REGISTRO DE ACTIVIDADES ------------------
+    //REGISTRO DE ACTIVIDADES
     public static void regActExt() {
         System.out.println("Haz seleccionado el registro de actividades extracurriculares");
         System.out.println("¿Qué cantidad de actividades extracurriculares realiza?");
         int numAct = scanner.nextInt();
-        scanner.nextLine(); // limpiar buffer
+        scanner.nextLine();
 
         actExt = new String[numAct];
         actHorEnt = new String[numAct][5];
@@ -115,7 +114,7 @@ public class Horario {
         System.out.println("Registro de actividades completado.");
     }
 
-    // ------------------ VER HORARIO COMPLETO ------------------
+    //HORARIO COMPLETO
     public static void verHorarioCompleto() {
         if(matEsc != null){
             imprimirResumenPorDia(matEsc, matHorEnt, matHorSal, "Materia");
@@ -130,7 +129,7 @@ public class Horario {
         }
     }
 
-    // ------------------ IMPRESIÓN DE RESUMEN POR DÍA ------------------
+    //IMPRESIÓN DE RESUMEN POR DÍA
     public static void imprimirResumenPorDia(String[] nombres, String[][] horEnt, String[][] horSal, String tipo) {
         String[] dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};
         System.out.println("······································\n" +
@@ -143,7 +142,7 @@ public class Horario {
 
         System.out.println("\nResumen de " + tipo.toLowerCase() + "s por día:");
 
-        for(int i = 0; i < 5; i++){ // recorrer días
+        for(int i = 0; i < 5; i++){
             List<String[]> listaDia = new ArrayList<>();
 
             for(int x = 0; x < nombres.length; x++){
@@ -155,7 +154,6 @@ public class Horario {
             // Ordenar por hora de entrada (asumiendo formato HH:mm)
             listaDia.sort((a,b) -> a[1].compareTo(b[1]));
 
-            // Imprimir
             System.out.print(dias[i] + ": ");
             if(listaDia.isEmpty()){
                 System.out.println("Sin " + tipo.toLowerCase() + "s");
