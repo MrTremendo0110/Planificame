@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Horario {
     static Scanner scanner = new Scanner(System.in);
-
+// variables pa guardar hora de entrada y salida y horario en general
     static String[] matEsc;
     static String[][] matHorEnt;
     static String[][] matHorSal;
@@ -34,7 +34,7 @@ public class Horario {
                     verHorarioCompleto();
                     break;
                 case 4:
-                    System.out.println("¡Hasta luego!");
+                    System.out.println("Saliendo...");
                     return;
                 default:
                     System.out.println("Opción inválida, intente de nuevo.");
@@ -42,7 +42,7 @@ public class Horario {
         }
     }
 
-    //REGISTRO DE MATERIAS
+    //REGISTRO DE MATERIAS ( cuantas cursa, nombre y que dias toca)
     public static void regHorEsc() {
         System.out.println("Haz seleccionado el registro de horario escolar");
         System.out.println("¿Cuántas materias está cursando?");
@@ -64,21 +64,21 @@ public class Horario {
                 String respuesta = scanner.nextLine().trim().toLowerCase();
 
                 if(respuesta.equals("s")){
-                    System.out.print("Ingrese el horario de entrada (HH:mm): ");
+                    System.out.print("Ingrese el horario de entrada (En formato HH:mm): ");
                     matHorEnt[x][i] = scanner.nextLine();
-                    System.out.print("Ingrese el horario de salida (HH:mm): ");
+                    System.out.print("Ingrese el horario de salida (En formato HH:mm): ");
                     matHorSal[x][i] = scanner.nextLine();
                 } else {
-                    matHorEnt[x][i] = "No aplica";
-                    matHorSal[x][i] = "No aplica";
+                    matHorEnt[x][i] = "No se encuentra";
+                    matHorSal[x][i] = "No se encuentra";
                 }
             }
         }
 
-        System.out.println("Registro de materias completado.");
+        System.out.println("Registro de materias completo.");
     }
 
-    //REGISTRO DE ACTIVIDADES
+    //REGISTRO DE ACTIVIDADES (cuantas act, días que toca y hora)
     public static void regActExt() {
         System.out.println("Haz seleccionado el registro de actividades extracurriculares");
         System.out.println("¿Qué cantidad de actividades extracurriculares realiza?");
@@ -100,18 +100,18 @@ public class Horario {
                 String respuesta = scanner.nextLine().trim().toLowerCase();
 
                 if(respuesta.equals("s")){
-                    System.out.print("Ingrese el horario de entrada (HH:mm): ");
+                    System.out.print("Ingrese el horario de entrada (En formato HH:mm): ");
                     actHorEnt[x][i] = scanner.nextLine();
-                    System.out.print("Ingrese el horario de salida (HH:mm): ");
+                    System.out.print("Ingrese el horario de salida (En formato HH:mm): ");
                     actHorSal[x][i] = scanner.nextLine();
                 } else {
-                    actHorEnt[x][i] = "No aplica";
-                    actHorSal[x][i] = "No aplica";
+                    actHorEnt[x][i] = "No se encuentra";
+                    actHorSal[x][i] = "No se encuentra";
                 }
             }
         }
 
-        System.out.println("Registro de actividades completado.");
+        System.out.println("Registro de actividades completo.");
     }
 
     //HORARIO COMPLETO
@@ -119,7 +119,7 @@ public class Horario {
         if(matEsc != null){
             imprimirResumenPorDia(matEsc, matHorEnt, matHorSal, "Materia");
         } else {
-            System.out.println("No se ha registrado horario escolar todavía.");
+            System.out.println("No se ha registrado horario escolar aún.");
         }
 
         if(actExt != null){
@@ -129,7 +129,7 @@ public class Horario {
         }
     }
 
-    //IMPRESIÓN DE RESUMEN POR DÍA
+    //RESUMEN DE AMBOS HORARIOS
     public static void imprimirResumenPorDia(String[] nombres, String[][] horEnt, String[][] horSal, String tipo) {
         String[] dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};
         System.out.println("······································\n" +
