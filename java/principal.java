@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class principal {
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -8,7 +11,19 @@ public class principal {
 
         // Inicio del bucle
         while (continuar) {
-            System.out.println("\n--- MENU PRINCIPAL ---");
+
+            System.out.println(ANSI_GREEN +
+                    "███     ███   ██████████   ███      ███   ███     ███      ██████████   ██████████    █████████   ███      ███   ███████████   █████████   ██████████   ██████████   ███                                                  \n" +
+                    "████   ████   ██████████   ████     ███   ███     ███      ██████████   ██████████    █████████   ████     ███   ███████████   █████████   ██████████   ██████████   ███                                     \n" +
+                    "███ █ █ ███   ███          █████    ███   ███     ███      ███     ███  ███     ███      ███      █████    ███   ██               ███      ███     ███  ███    ███   ███                                         \n" +
+                    "███  █  ███   █████████    ███ ██   ███   ███     ███      ███     ███  ███     ███      ███      ███ ██   ███   ██               ███      ███     ███  ███    ███   ███                          \n" +
+                    "███     ███   █████████    ███  ██  ███   ███     ███      ██████████   ██████████       ███      ███  ██  ███   ██               ███      ██████████   ██████████   ███                     \n" +
+                    "███     ███   ███          ███   ██ ███   ███     ███      ███          ███  ███         ███      ███   ██ ███   ██               ███      ███          ██████████   ███                   \n" +
+                    "███     ███   ██████████   ███    █████   ███████████      ███          ███   ███     █████████   ███    █████   ███████████   █████████   ███          ███    ███   ███              \n" +
+                    "███     ███   ██████████   ███     ████   ███████████      ███          ███    ███    █████████   ███     ████   ███████████   █████████   ███          ███    ███   ██████████                  \n" +
+                    ANSI_RESET);
+
+
             System.out.println("¿Que funcion desea realizar?");
             System.out.println("1. Horario");
             System.out.println("2. Calendario");
