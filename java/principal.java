@@ -37,7 +37,6 @@ public class principal {
             switch (opcion) {
                 case "1":
                    Horario.main();
-
                     break;
                 case "2":
 

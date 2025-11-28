@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class alumno {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
 
     public static void main() {
 
@@ -21,7 +23,16 @@ public class alumno {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("--- MÓDULO ALUMNO ---");
+        System.out.println(ANSI_YELLOW +
+                "██████████                                           \n" +
+                "██████████                               \n" +
+                "███    ███                               \n" +
+                "███    ███                               \n" +
+                "██████████                         \n" +
+                "██████████                      \n" +
+                "███    ███                            \n" +
+                "███    ███               \n" +
+                ANSI_RESET);
 
 
         for (i = 0; i < 10; i++) {

@@ -18,11 +18,26 @@ public class calendario {
     static int[] aniosEventos = new int[MAX_EVENTOS];
     static int[] horasEventos = new int[MAX_EVENTOS];
     static int[] minutosEventos = new int[MAX_EVENTOS];
-
     static int contadorEventos = 0;
-
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 
     public static void main() {
+
+        System.out.println(ANSI_BLUE +
+                "███████████   ██████████   ███           ███████████   ███      ███   █████████      ██████████   ██████████    █████████    ████████                                   \n" +
+                "███████████   ██████████   ███           ███████████   ████     ███   ███     ███    ██████████   ██████████    █████████   ███    ███                              \n" +
+                "██            ███    ███   ███           ███           █████    ███   ███      ███   ███    ███   ███     ███      ███     ███      ███                       \n" +
+                "██            ███    ███   ███           ███           ███ ██   ███   ███      ███   ███    ███   ███     ███      ███     ███      ███                   \n" +
+                "██            ██████████   ███           ███████████   ███  ██  ███   ███      ███   ██████████   ██████████       ███     ███      ███                    \n" +
+                "██            ██████████   ███           ███           ███   ██ ███   ███      ███   ██████████   ███  ███         ███     ███      ███                                  \n" +
+                "███████████   ███    ███   ███           ███████████   ███    █████   ███     ███    ███    ███   ███   ███     █████████   ███    ███                           \n" +
+                "███████████   ███    ███   ███████████   ███████████   ███     ████   █████████      ███    ███   ███    ███    █████████    ████████                         \n" +
+                ANSI_RESET);
+
+
+
+
 
         int opcionMenu = 0;
 

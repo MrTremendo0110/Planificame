@@ -3,6 +3,10 @@ import java.util.*;
 public class Horario {
     static Scanner scanner = new Scanner(System.in);
 // variables pa guardar hora de entrada y salida y horario en general
+
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     static String[] matEsc;
     static String[][] matHorEnt;
     static String[][] matHorSal;
@@ -11,9 +15,20 @@ public class Horario {
     static String[][] actHorEnt;
     static String[][] actHorSal;
 
-    public static void main(String[] args) {
+    public static void main() {
+        System.out.println(ANSI_PURPLE +
+                "███       ███      ████████     ██████████    ██████████   ██████████    █████████     ████████                                         \n" +
+                "███       ███     ███    ███    ██████████    ██████████   ██████████    █████████    ███    ███                            \n" +
+                "███       ███    ███      ███   ███     ███   ███    ███   ███     ███      ███      ███      ███                              \n" +
+                "█████████████    ███      ███   ███     ███   ███    ███   ███     ███      ███      ███      ███                            \n" +
+                "█████████████    ███      ███   ██████████    ██████████   ██████████       ███      ███      ███                      \n" +
+                "███       ███    ███      ███   ███  ███      ██████████   ███  ███         ███      ███      ███                   \n" +
+                "███       ███     ███    ███    ███   ███     ███    ███   ███   ███     █████████    ███    ███                         \n" +
+                "███       ███      ████████     ███    ███    ███    ███   ███    ███    █████████     ████████              \n" +
+                ANSI_RESET);
+
         while(true){
-            System.out.println("\n=== MENÚ PRINCIPAL ===");
+            System.out.println("\n=== MENÚ PRINCIPAL DE HORARIO ===");
             System.out.println("1.-Registro de horario escolar");
             System.out.println("2.-Registro de actividades extracurriculares");
             System.out.println("3.-Ver horario completo");
