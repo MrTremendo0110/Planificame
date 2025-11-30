@@ -7,17 +7,30 @@ public class registro {
     public static int edad;
     public static int semestre;
     public static Scanner scanner = new Scanner(System.in);
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
 
-    public static void main(String[] args) {
+    public static void main() {
         String bandera = "n";
-        System.out.println("Bienvenido");
+
+        System.out.println(ANSI_GREEN +
+                "██████████    ██████████    █████████    ██████████    █████████    ███████████   ██████████      ████████                                                \n" +
+                "██████████    ██████████   ███     ███   ██████████   ███     ███   ███████████   ██████████     ███    ███                               \n" +
+                "███     ███   ███          ███       █      ████      ███       █       ███       ███     ███   ███      ███                      \n" +
+                "███     ███   ██████████   ███              ████       ████             ███       ███     ███   ███      ███                         \n" +
+                "██████████    ██████████   ███   █████      ████          █████         ███       ██████████    ███      ███                             \n" +
+                "███  ███      ███          ███      ██      ████      █       ███       ███       ███  ███      ███      ███                   \n" +
+                "███   ███     ██████████   ███     ███   ██████████   ███     ███       ███       ███   ███      ███    ███                                  \n" +
+                "███    ███    ██████████    █████████    ██████████    █████████        ███       ███    ███      ████████                            \n" +
+                ANSI_RESET);
+
         while(bandera.equals("n")){
             nombre = leerNombre();
             edad = leerEdad();
             semestre = leerSemestre();
             turnoEsc = leerTurno();
             System.out.println("Ha escrito:\n"+ nombre + "\n" + edad + "\n" + semestre + "\n" + turnoEsc + "\n" + "¿Sus datos son correctos? (s/n)");
-            bandera = scanner.nextLine();
+            bandera = scanner.next();
         }
         System.out.println("Su información ha sido registrada con éxito");
     }
@@ -58,7 +71,7 @@ public class registro {
     public static String leerTurno(){
         while(true) {
             System.out.println("¿En qué turno asiste a la escuela? (matutino/despertino)");
-            turnoEsc = scanner.nextLine();
+            turnoEsc = scanner.next();
             if (!turnoEsc.equals("matutino") && !turnoEsc.equals("despertino")) {
                 System.out.println("Error, el turno no se escribió según lo especificado (matutino/despertino)");
             }

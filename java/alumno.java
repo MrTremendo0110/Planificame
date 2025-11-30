@@ -10,7 +10,6 @@ public class alumno {
         String[] materias = new String[10];
         double[][] calificaciones = new double[10][3];
 
-
         int i, j;
         int numMaterias = 0;
         double sumaTotalCalificaciones = 0.0;
@@ -20,20 +19,18 @@ public class alumno {
         String materiaIngresada;
         boolean seguirPrograma = true;
 
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(ANSI_YELLOW +
-                "██████████                                           \n" +
-                "██████████                               \n" +
-                "███    ███                               \n" +
-                "███    ███                               \n" +
-                "██████████                         \n" +
-                "██████████                      \n" +
-                "███    ███                            \n" +
-                "███    ███               \n" +
+                "██████████   ███        ███     ███   ███     ███   ███      ███      ████████ \n" +
+                "██████████   ███        ███     ███   ████   ████   ████     ███     ███    ███\n" +
+                "███    ███   ███        ███     ███   ███ █ █ ███   █████    ███    ███      ███\n" +
+                "███    ███   ███        ███     ███   ███  █  ███   ███ ██   ███    ███      ███\n" +
+                "██████████   ███        ███     ███   ███     ███   ███  ██  ███    ███      ███\n" +
+                "██████████   ███        ███     ███   ███     ███   ███   ██ ███    ███      ███\n" +
+                "███    ███   ███         ███   ███    ███     ███   ███    █████     ███    ███\n" +
+                "███    ███   █████████    ███████     ███     ███   ███     ████      ████████\n" +
                 ANSI_RESET);
-
 
         for (i = 0; i < 10; i++) {
             if (seguirPrograma) {
@@ -43,42 +40,76 @@ public class alumno {
                 if (materiaIngresada.equalsIgnoreCase("salir")) {
                     seguirPrograma = false;
                 } else {
-
                     materias[i] = materiaIngresada;
-
 
                     for (j = 0; j < 3; j++) {
                         boolean calificacionValida = false;
 
                         do {
-                            System.out.print("Ingresa la calificacion " + (j + 1) + " para " + materias[i] + " (entre 0 y 10): ");
-
+                            System.out.print("Ingresa la calificacion " + (j + 1) + " para " + materias[i] + " (0 a 10): ");
 
                             if (scanner.hasNextDouble()) {
                                 calificacion = scanner.nextDouble();
-
                                 scanner.nextLine();
-
 
                                 if (calificacion >= 0.0 && calificacion <= 10.0) {
                                     calificaciones[i][j] = calificacion;
                                     sumaTotalCalificaciones += calificacion;
                                     calificacionValida = true;
                                 } else {
-                                    System.out.println(">> Calificacion no valida. Por favor, ingresa un numero entre 0 y 10.");
+                                    System.out.println(">> Calificacion no valida. Debe ser entre 0 y 10.");
                                 }
                             } else {
-
-                                System.out.println(">> Entrada invalida. Por favor, ingresa un numero.");
-
+                                System.out.println(">> Entrada invalida. Ingresa un número.");
                                 scanner.nextLine();
-                                calificacion = -1.0;
                             }
                         } while (!calificacionValida);
                     }
 
+                    // --- NUEVA FUNCIÓN: elegir método de promedio ---
+                    int opcion;
+                    do {
+                        System.out.println("\n¿Cómo deseas calcular el promedio de " + materias[i] + "?");
+                        System.out.println("1) Promedio normal");
+                        System.out.println("2) Promedio con porcentajes");
+                        System.out.print("Elige una opción: ");
 
-                    promedioMateria = (calificaciones[i][0] + calificaciones[i][1] + calificaciones[i][2]) / 3.0;
+                        opcion = scanner.nextInt();
+                        scanner.nextLine();
+
+                    } while (opcion != 1 && opcion != 2);
+
+                    if (opcion == 1) {
+                        // PROMEDIO NORMAL
+                        promedioMateria = (calificaciones[i][0] + calificaciones[i][1] + calificaciones[i][2]) / 3.0;
+
+                    } else {
+                        // PROMEDIO CON PORCENTAJES
+                        double p1, p2, p3;
+
+                        System.out.println("Ingresa el porcentaje de cada calificación (deben sumar 100):");
+
+                        do {
+                            System.out.print("Porcentaje 1: ");
+                            p1 = scanner.nextDouble();
+                            System.out.print("Porcentaje 2: ");
+                            p2 = scanner.nextDouble();
+                            System.out.print("Porcentaje 3: ");
+                            p3 = scanner.nextDouble();
+                            scanner.nextLine();
+
+                            if (p1 + p2 + p3 != 100) {
+                                System.out.println(">> Los porcentajes deben sumar 100. Intenta de nuevo.");
+                            }
+
+                        } while (p1 + p2 + p3 != 100);
+
+                        promedioMateria =
+                                calificaciones[i][0] * (p1 / 100) +
+                                        calificaciones[i][1] * (p2 / 100) +
+                                        calificaciones[i][2] * (p3 / 100);
+                    }
+
                     System.out.printf(">> El promedio de la materia %s es: %.2f%n", materias[i], promedioMateria);
                     System.out.println();
 
@@ -86,6 +117,8 @@ public class alumno {
                 }
             }
         }
+
+        // --- RESUMEN ---
         System.out.println("\n*** Resumen de calificaciones ***");
 
         if (numMaterias > 0) {
@@ -98,17 +131,15 @@ public class alumno {
                         calificaciones[i][2]);
 
                 promedioMateria = (calificaciones[i][0] + calificaciones[i][1] + calificaciones[i][2]) / 3.0;
-                System.out.printf("  Promedio: %.2f%n", promedioMateria);
+                System.out.printf("  Promedio normal: %.2f%n", promedioMateria);
                 System.out.println("--------------------------------");
             }
-
 
             promedioGeneral = sumaTotalCalificaciones / (numMaterias * 3);
             System.out.printf("*** El promedio general del alumno es: %.2f ***%n", promedioGeneral);
         } else {
             System.out.println("No se ingresaron calificaciones.");
         }
-
 
         System.out.println("\nPresione Enter para volver al Menú Principal...");
         scanner.nextLine();

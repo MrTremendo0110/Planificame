@@ -6,6 +6,8 @@ public class principal {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static void main(String[] args) {
 
+        registro.main();
+
         Scanner sc = new Scanner(System.in);
         boolean continuar = true;
 
