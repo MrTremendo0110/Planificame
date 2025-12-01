@@ -2,10 +2,11 @@ import java.util.*;
 
 public class Horario {
     static Scanner scanner = new Scanner(System.in);
-// variables pa guardar hora de entrada y salida y horario en general
 
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
 
     static String[] matEsc;
     static String[][] matHorEnt;
@@ -27,18 +28,18 @@ public class Horario {
                 "███       ███      ████████     ███    ███    ███    ███   ███    ███    █████████     ████████              \n" +
                 ANSI_RESET);
 
-        while(true){
-            System.out.println("\n=== MENÚ PRINCIPAL DE HORARIO ===");
-            System.out.println("1.-Registro de horario escolar");
-            System.out.println("2.-Registro de actividades extracurriculares");
-            System.out.println("3.-Ver horario completo");
-            System.out.println("4.-Salir");
-            System.out.print("Seleccione una opción: ");
+        while (true) {
+            System.out.println(ANSI_YELLOW + "\n=== MENÚ PRINCIPAL DE HORARIO ===");
+            System.out.println("1.- Registro de horario escolar");
+            System.out.println("2.- Registro de actividades extracurriculares");
+            System.out.println("3.- Ver horario completo");
+            System.out.println("4.- Salir");
+            System.out.print(ANSI_RESET + "Seleccione una opción: ");
 
             int opcOp = scanner.nextInt();
             scanner.nextLine();
 
-            switch(opcOp){
+            switch (opcOp) {
                 case 1:
                     regHorEsc();
                     break;
@@ -49,7 +50,7 @@ public class Horario {
                     verHorarioCompleto();
                     break;
                 case 4:
-                    System.out.println("Saliendo...");
+                    System.out.println(ANSI_GREEN + "Saliendo...");
                     return;
                 default:
                     System.out.println("Opción inválida, intente de nuevo.");
@@ -57,10 +58,10 @@ public class Horario {
         }
     }
 
-    //REGISTRO DE MATERIAS ( cuantas cursa, nombre y que dias toca)
+    // Registro de materias (cuántas cursa, nombre y qué días toca)
     public static void regHorEsc() {
-        System.out.println("Haz seleccionado el registro de horario escolar");
-        System.out.println("¿Cuántas materias está cursando?");
+        System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de horario escolar.");
+        System.out.print("¿Cuántas materias está cursando? ");
         int numMat = scanner.nextInt();
         scanner.nextLine();
 
@@ -68,21 +69,19 @@ public class Horario {
         matHorEnt = new String[numMat][5];
         matHorSal = new String[numMat][5];
 
-        String[] dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};
+        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
 
-        for(int x = 0; x < numMat; x++){
-            System.out.println("Ingrese el nombre de la materia " + (x+1));
+        for (int x = 0; x < numMat; x++) {
+            System.out.print("Ingrese el nombre de la materia " + (x + 1) + ": ");
             matEsc[x] = scanner.nextLine();
 
-            for(int i = 0; i < 5; i++){
-                System.out.println("¿La materia \"" + matEsc[x] + "\" se cursa el " + dias[i] + "? (s/n)");
+            for (int i = 0; i < 5; i++) {
+                System.out.print("¿La materia \"" + matEsc[x] + "\" se cursa el " + dias[i] + "? (s/n) ");
                 String respuesta = scanner.nextLine().trim().toLowerCase();
 
-                if(respuesta.equals("s")){
-                    System.out.print("Ingrese el horario de entrada (En formato HH:mm): ");
-                    matHorEnt[x][i] = scanner.nextLine();
-                    System.out.print("Ingrese el horario de salida (En formato HH:mm): ");
-                    matHorSal[x][i] = scanner.nextLine();
+                if (respuesta.equals("s")) {
+                    matHorEnt[x][i] = obtenerHora("entrada", dias[i]);
+                    matHorSal[x][i] = obtenerHora("salida", dias[i]);
                 } else {
                     matHorEnt[x][i] = "No se encuentra";
                     matHorSal[x][i] = "No se encuentra";
@@ -90,13 +89,13 @@ public class Horario {
             }
         }
 
-        System.out.println("Registro de materias completo.");
+        System.out.println(ANSI_GREEN + "Registro de materias completo.");
     }
 
-    //REGISTRO DE ACTIVIDADES (cuantas act, días que toca y hora)
+    // Registro de actividades extracurriculares
     public static void regActExt() {
-        System.out.println("Haz seleccionado el registro de actividades extracurriculares");
-        System.out.println("¿Qué cantidad de actividades extracurriculares realiza?");
+        System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de actividades extracurriculares.");
+        System.out.print("¿Qué cantidad de actividades extracurriculares realiza? ");
         int numAct = scanner.nextInt();
         scanner.nextLine();
 
@@ -104,21 +103,19 @@ public class Horario {
         actHorEnt = new String[numAct][5];
         actHorSal = new String[numAct][5];
 
-        String[] dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};
+        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
 
-        for(int x = 0; x < numAct; x++){
-            System.out.println("Ingrese el nombre de la actividad " + (x+1));
+        for (int x = 0; x < numAct; x++) {
+            System.out.print("Ingrese el nombre de la actividad " + (x + 1) + ": ");
             actExt[x] = scanner.nextLine();
 
-            for(int i = 0; i < 5; i++){
-                System.out.println("¿La actividad \"" + actExt[x] + "\" se realiza el " + dias[i] + "? (s/n)");
+            for (int i = 0; i < 5; i++) {
+                System.out.print("¿La actividad \"" + actExt[x] + "\" se realiza el " + dias[i] + "? (s/n) ");
                 String respuesta = scanner.nextLine().trim().toLowerCase();
 
-                if(respuesta.equals("s")){
-                    System.out.print("Ingrese el horario de entrada (En formato HH:mm): ");
-                    actHorEnt[x][i] = scanner.nextLine();
-                    System.out.print("Ingrese el horario de salida (En formato HH:mm): ");
-                    actHorSal[x][i] = scanner.nextLine();
+                if (respuesta.equals("s")) {
+                    actHorEnt[x][i] = obtenerHora("entrada", dias[i]);
+                    actHorSal[x][i] = obtenerHora("salida", dias[i]);
                 } else {
                     actHorEnt[x][i] = "No se encuentra";
                     actHorSal[x][i] = "No se encuentra";
@@ -126,60 +123,54 @@ public class Horario {
             }
         }
 
-        System.out.println("Registro de actividades completo.");
+        System.out.println(ANSI_GREEN + "Registro de actividades completo.");
     }
 
-    //HORARIO COMPLETO
+    // Método para ingresar horarios con validación
+    public static String obtenerHora(String tipo, String dia) {
+        String hora = "";
+        boolean horaValida = false;
+
+        while (!horaValida) {
+            System.out.print("Ingrese el horario de " + tipo + " (en formato HH:mm) para el día " + dia + ": ");
+            hora = scanner.nextLine();
+            if (hora.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
+                horaValida = true;
+            } else {
+                System.out.println("Error: El formato de la hora es incorrecto. Intente de nuevo.");
+            }
+        }
+        return hora;
+    }
+
+    // Mostrar horario completo
     public static void verHorarioCompleto() {
-        if(matEsc != null){
+        if (matEsc != null) {
             imprimirResumenPorDia(matEsc, matHorEnt, matHorSal, "Materia");
         } else {
-            System.out.println("No se ha registrado horario escolar aún.");
+            System.out.println(ANSI_RED + "No se ha registrado horario escolar aún." + ANSI_RESET);
         }
 
-        if(actExt != null){
+        if (actExt != null) {
             imprimirResumenPorDia(actExt, actHorEnt, actHorSal, "Actividad");
         } else {
-            System.out.println("No se ha registrado actividades extracurriculares todavía.");
+            System.out.println(ANSI_RED + "No se han registrado actividades extracurriculares todavía." + ANSI_RESET);
         }
     }
 
-    //RESUMEN DE AMBOS HORARIOS
+    // Imprimir resumen de ambos horarios
     public static void imprimirResumenPorDia(String[] nombres, String[][] horEnt, String[][] horSal, String tipo) {
-        String[] dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};
-        System.out.println(ANSI_PURPLE + "······································\n" +
-                ": _   _                      _       :\n" +
-                ":| | | | ___  _ __ __ _ _ __(_) ___  :\n" +
-                ":| |_| |/ _ \\| '__/ _` | '__| |/ _ \\ :\n" +
-                ":|  _  | (_) | | | (_| | |  | | (_) |:\n" +
-                ":|_| |_|\\___/|_|  \\__,_|_|  |_|\\___/ :\n" +
-                "······································" + ANSI_RESET);
+        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
+        System.out.println(ANSI_PURPLE + "\n===== RESUMEN DE " + tipo.toUpperCase() + "S POR DÍA =====" + ANSI_RESET);
 
-        System.out.println("\nResumen de " + tipo.toLowerCase() + "s por día:");
-
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             List<String[]> listaDia = new ArrayList<>();
 
-            for(int x = 0; x < nombres.length; x++){
-                if(!horEnt[x][i].equals("No aplica")){
+            for (int x = 0; x < nombres.length; x++) {
+                if (!horEnt[x][i].equals("No se encuentra")) {
                     listaDia.add(new String[]{nombres[x], horEnt[x][i], horSal[x][i]});
                 }
             }
 
             // Ordenar por hora de entrada (asumiendo formato HH:mm)
-            listaDia.sort((a,b) -> a[1].compareTo(b[1]));
-
-            System.out.print(dias[i] + ": ");
-            if(listaDia.isEmpty()){
-                System.out.println("Sin " + tipo.toLowerCase() + "s");
-            } else {
-                for(int j = 0; j < listaDia.size(); j++){
-                    String[] m = listaDia.get(j);
-                    System.out.print(m[0] + " (" + m[1] + "-" + m[2] + ")");
-                    if(j < listaDia.size()-1) System.out.print(", ");
-                }
-                System.out.println();
-            }
-        }
-    }
-}
+            listaDia.sort((a, b) -> a[1].compareTo(b

@@ -91,3 +91,7 @@ public class registro {
         return turnoEsc.toLowerCase();
     }
 }
+
+
+
+
