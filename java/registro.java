@@ -37,8 +37,17 @@ public class registro {
 
 
     public static String leerNombre(){
-        System.out.println("¿Cuál es su nombre?");
-        nombre = scanner.nextLine();
+        nombre = null;
+        while(true){
+            System.out.println("¿Cuál es su nombre?");
+            nombre = scanner.next();
+            if(nombre.isEmpty()){
+                System.out.println("Error, no ha escrito nada, vuelva a introducir su nombre");
+            }
+            else{
+                break;
+            }
+        }
         return nombre;
     }
 
@@ -72,13 +81,13 @@ public class registro {
         while(true) {
             System.out.println("¿En qué turno asiste a la escuela? (matutino/despertino)");
             turnoEsc = scanner.next();
-            if (!turnoEsc.equals("matutino") && !turnoEsc.equals("despertino")) {
+            if (!turnoEsc.equalsIgnoreCase("matutino") && !turnoEsc.equalsIgnoreCase("despertino")) {
                 System.out.println("Error, el turno no se escribió según lo especificado (matutino/despertino)");
             }
             else{
                 break;
             }
         }
-        return turnoEsc;
+        return turnoEsc.toLowerCase();
     }
 }

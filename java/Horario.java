@@ -147,13 +147,13 @@ public class Horario {
     //RESUMEN DE AMBOS HORARIOS
     public static void imprimirResumenPorDia(String[] nombres, String[][] horEnt, String[][] horSal, String tipo) {
         String[] dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};
-        System.out.println("······································\n" +
+        System.out.println(ANSI_PURPLE + "······································\n" +
                 ": _   _                      _       :\n" +
                 ":| | | | ___  _ __ __ _ _ __(_) ___  :\n" +
                 ":| |_| |/ _ \\| '__/ _` | '__| |/ _ \\ :\n" +
                 ":|  _  | (_) | | | (_| | |  | | (_) |:\n" +
                 ":|_| |_|\\___/|_|  \\__,_|_|  |_|\\___/ :\n" +
-                "······································");
+                "······································" + ANSI_RESET);
 
         System.out.println("\nResumen de " + tipo.toLowerCase() + "s por día:");
 
