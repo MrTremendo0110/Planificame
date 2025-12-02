@@ -7,6 +7,8 @@ public class Horario {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_CYAN = "\u001B[36m";
 
     static String[] matEsc;
     static String[][] matHorEnt;
@@ -17,15 +19,14 @@ public class Horario {
     static String[][] actHorSal;
 
     public static void main() {
+        // Título decorado
         System.out.println(ANSI_PURPLE +
-                "███       ███      ████████     ██████████    ██████████   ██████████    █████████     ████████                                         \n" +
-                "███       ███     ███    ███    ██████████    ██████████   ██████████    █████████    ███    ███                            \n" +
-                "███       ███    ███      ███   ███     ███   ███    ███   ███     ███      ███      ███      ███                              \n" +
-                "█████████████    ███      ███   ███     ███   ███    ███   ███     ███      ███      ███      ███                            \n" +
-                "█████████████    ███      ███   ██████████    ██████████   ██████████       ███      ███      ███                      \n" +
-                "███       ███    ███      ███   ███  ███      ██████████   ███  ███         ███      ███      ███                   \n" +
-                "███       ███     ███    ███    ███   ███     ███    ███   ███   ███     █████████    ███    ███                         \n" +
-                "███       ███      ████████     ███    ███    ███    ███   ███    ███    █████████     ████████              \n" +
+                "██╗░░██╗░█████╗░██████╗░░█████╗░██████╗░██╗░█████╗░\n" +
+                "██║░░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗\n" +
+                "███████║██║░░██║██████╔╝███████║██████╔╝██║██║░░██║\n" +
+                "██╔══██║██║░░██║██╔══██╗██╔══██║██╔══██╗██║██║░░██║\n" +
+                "██║░░██║╚█████╔╝██║░░██║██║░░██║██║░░██║██║╚█████╔╝\n" +
+                "╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚════╝░" +
                 ANSI_RESET);
 
         while (true) {
@@ -40,27 +41,21 @@ public class Horario {
             scanner.nextLine();
 
             switch (opcOp) {
-                case 1:
-                    regHorEsc();
-                    break;
-                case 2:
-                    regActExt();
-                    break;
-                case 3:
-                    verHorarioCompleto();
-                    break;
+                case 1: regHorEsc(); break;
+                case 2: regActExt(); break;
+                case 3: verHorarioCompleto(); break;
                 case 4:
-                    System.out.println(ANSI_GREEN + "Saliendo...");
+                    System.out.println(ANSI_GREEN + "Saliendo..." + ANSI_RESET);
                     return;
                 default:
-                    System.out.println("Opción inválida, intente de nuevo.");
+                    System.out.println(ANSI_RED + "Opción inválida, intente de nuevo." + ANSI_RESET);
             }
         }
     }
 
-    // Registro de materias (cuántas cursa, nombre y qué días toca)
+    // Registro de materias
     public static void regHorEsc() {
-        System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de horario escolar.");
+        System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de horario escolar." + ANSI_RESET);
         System.out.print("¿Cuántas materias está cursando? ");
         int numMat = scanner.nextInt();
         scanner.nextLine();
@@ -89,13 +84,13 @@ public class Horario {
             }
         }
 
-        System.out.println(ANSI_GREEN + "Registro de materias completo.");
+        System.out.println(ANSI_GREEN + "Registro de materias completo." + ANSI_RESET);
     }
 
     // Registro de actividades extracurriculares
     public static void regActExt() {
-        System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de actividades extracurriculares.");
-        System.out.print("¿Qué cantidad de actividades extracurriculares realiza? ");
+        System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de actividades extracurriculares." + ANSI_RESET);
+        System.out.print("¿Cuántas actividades realiza? ");
         int numAct = scanner.nextInt();
         scanner.nextLine();
 
@@ -123,47 +118,46 @@ public class Horario {
             }
         }
 
-        System.out.println(ANSI_GREEN + "Registro de actividades completo.");
+        System.out.println(ANSI_GREEN + "Registro de actividades completo." + ANSI_RESET);
     }
 
-    // Método para ingresar horarios con validación
+    // Validación de hora
     public static String obtenerHora(String tipo, String dia) {
-        String hora = "";
-        boolean horaValida = false;
-
-        while (!horaValida) {
-            System.out.print("Ingrese el horario de " + tipo + " (en formato HH:mm) para el día " + dia + ": ");
+        String hora;
+        while (true) {
+            System.out.print("Ingrese la hora de " + tipo + " (HH:mm) para " + dia + ": ");
             hora = scanner.nextLine();
+
             if (hora.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
-                horaValida = true;
-            } else {
-                System.out.println("Error: El formato de la hora es incorrecto. Intente de nuevo.");
+                return hora;
             }
+
+            System.out.println(ANSI_RED + "Error: Formato incorrecto, intente de nuevo." + ANSI_RESET);
         }
-        return hora;
     }
 
-    // Mostrar horario completo
+    // Resumen final decorado
     public static void verHorarioCompleto() {
-        if (matEsc != null) {
+        if (matEsc != null)
             imprimirResumenPorDia(matEsc, matHorEnt, matHorSal, "Materia");
-        } else {
+        else
             System.out.println(ANSI_RED + "No se ha registrado horario escolar aún." + ANSI_RESET);
-        }
 
-        if (actExt != null) {
+        if (actExt != null)
             imprimirResumenPorDia(actExt, actHorEnt, actHorSal, "Actividad");
-        } else {
-            System.out.println(ANSI_RED + "No se han registrado actividades extracurriculares todavía." + ANSI_RESET);
-        }
+        else
+            System.out.println(ANSI_RED + "No se han registrado actividades aún." + ANSI_RESET);
     }
 
-    // Imprimir resumen de ambos horarios
+    // Imprimir por día
     public static void imprimirResumenPorDia(String[] nombres, String[][] horEnt, String[][] horSal, String tipo) {
         String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
-        System.out.println(ANSI_PURPLE + "\n===== RESUMEN DE " + tipo.toUpperCase() + "S POR DÍA =====" + ANSI_RESET);
+
+        System.out.println(ANSI_PURPLE + "\n========= RESUMEN DE " + tipo.toUpperCase() + "S =========" + ANSI_RESET);
 
         for (int i = 0; i < 5; i++) {
+            System.out.println(ANSI_CYAN + "\n--- " + dias[i].toUpperCase() + " ---" + ANSI_RESET);
+
             List<String[]> listaDia = new ArrayList<>();
 
             for (int x = 0; x < nombres.length; x++) {
@@ -172,5 +166,18 @@ public class Horario {
                 }
             }
 
-            // Ordenar por hora de entrada (asumiendo formato HH:mm)
-            listaDia.sort((a, b) -> a[1].compareTo(b
+            // Ordenar por hora de entrada
+            listaDia.sort((a, b) -> a[1].compareTo(b[1]));
+
+            if (listaDia.isEmpty()) {
+                System.out.println("No hay " + tipo.toLowerCase() + "s este día.");
+            } else {
+                for (String[] dato : listaDia) {
+                    System.out.println(ANSI_GREEN + dato[0] + ANSI_RESET +
+                            " | Entrada: " + dato[1] +
+                            " | Salida: " + dato[2]);
+                }
+            }
+        }
+    }
+}

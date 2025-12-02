@@ -19,52 +19,59 @@ public class calendario {
     static int[] horasEventos = new int[MAX_EVENTOS];
     static int[] minutosEventos = new int[MAX_EVENTOS];
     static int contadorEventos = 0;
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLUE = "\u001B[34m";
+
+    // Colores
+    public static final String RESET = "\u001B[0m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String RED = "\u001B[31m";
+    public static final String YELLOW = "\u001B[33m";
 
     public static void main() {
 
-        System.out.println(ANSI_BLUE +
-                "███████████   ██████████   ███           ███████████   ███      ███   █████████      ██████████   ██████████    █████████    ████████                                   \n" +
-                "███████████   ██████████   ███           ███████████   ████     ███   ███     ███    ██████████   ██████████    █████████   ███    ███                              \n" +
-                "██            ███    ███   ███           ███           █████    ███   ███      ███   ███    ███   ███     ███      ███     ███      ███                       \n" +
-                "██            ███    ███   ███           ███           ███ ██   ███   ███      ███   ███    ███   ███     ███      ███     ███      ███                   \n" +
-                "██            ██████████   ███           ███████████   ███  ██  ███   ███      ███   ██████████   ██████████       ███     ███      ███                    \n" +
-                "██            ██████████   ███           ███           ███   ██ ███   ███      ███   ██████████   ███  ███         ███     ███      ███                                  \n" +
-                "███████████   ███    ███   ███           ███████████   ███    █████   ███     ███    ███    ███   ███   ███     █████████   ███    ███                           \n" +
-                "███████████   ███    ███   ███████████   ███████████   ███     ████   █████████      ███    ███   ███    ███    █████████    ████████                         \n" +
-                ANSI_RESET);
-
-
-
-
+        System.out.println(CYAN +
+                "░█████╗░░█████╗░██╗░░░░░███████╗███╗░░██╗██████╗░░█████╗░██████╗░██╗░█████╗░\n" +
+                "██╔══██╗██╔══██╗██║░░░░░██╔════╝████╗░██║██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗\n" +
+                "██║░░╚═╝███████║██║░░░░░█████╗░░██╔██╗██║██║░░██║███████║██████╔╝██║██║░░██║\n" +
+                "██║░░██╗██╔══██║██║░░░░░██╔══╝░░██║╚████║██║░░██║██╔══██║██╔══██╗██║██║░░██║\n" +
+                "╚█████╔╝██║░░██║███████╗███████╗██║░╚███║██████╔╝██║░░██║██║░░██║██║╚█████╔╝\n" +
+                "░╚════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░╚════╝░" +
+                RESET);
 
         int opcionMenu = 0;
 
         LocalDateTime inicio = LocalDateTime.now();
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        System.out.println("--- SISTEMA DE CALENDARIO ---");
-        System.out.println("Fecha actual: " + inicio.format(formatoFecha));
+
+        System.out.println(BLUE + "┌───────────────────────────────┐" + RESET);
+        System.out.println(BLUE + "│       SISTEMA DE CALENDARIO   │" + RESET);
+        System.out.println(BLUE + "└───────────────────────────────┘" + RESET);
+        System.out.println("Fecha actual: " + CYAN + inicio.format(formatoFecha) + RESET);
+
         esperarTecla();
 
         do {
-
             limpiarPantalla();
-            System.out.println("--- MÓDULO DE CALENDARIO ---");
-            System.out.println("1. Registrar nuevo evento");
-            System.out.println("2. Ver eventos y cuenta regresiva");
-            System.out.println("3. Volver al Menú Principal");
-            System.out.println("----------------------------");
-            System.out.print("Elija una opción: ");
+            System.out.println(PURPLE + "╔═══════════════════════════════╗" + RESET);
+            System.out.println(PURPLE + "║       MÓDULO DE CALENDARIO    ║" + RESET);
+            System.out.println(PURPLE + "╚═══════════════════════════════╝" + RESET);
+
+            System.out.println(CYAN + "1." + RESET + " Registrar nuevo evento");
+            System.out.println(CYAN + "2." + RESET + " Ver eventos y cuenta regresiva");
+            System.out.println(CYAN + "3." + RESET + " Volver al Menú Principal");
+            System.out.println(YELLOW + "────────────────────────────────────" + RESET);
+            System.out.print("Seleccione una opción: ");
 
             try {
-                String input = scanner.nextLine();
-                opcionMenu = Integer.parseInt(input);
+                opcionMenu = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 opcionMenu = 0;
             }
 
             switch (opcionMenu) {
+
                 case 1:
                     registrarNuevoEvento();
                     break;
@@ -74,28 +81,29 @@ public class calendario {
                     break;
 
                 case 3:
-                    System.out.println("Volviendo al menú principal...");
+                    System.out.println(GREEN + "Volviendo al menú principal..." + RESET);
                     break;
 
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    System.out.println(RED + "Opción no válida. Intente de nuevo." + RESET);
                     esperarTecla();
                     break;
             }
 
         } while (opcionMenu != 3);
 
-
     }
 
     public static void registrarNuevoEvento() {
         if (contadorEventos >= MAX_EVENTOS) {
-            System.out.println("No se pueden registrar más eventos.");
+            System.out.println(RED + "No se pueden registrar más eventos." + RESET);
             esperarTecla();
             return;
         }
 
-        System.out.println("--- REGISTRAR NUEVO EVENTO ---");
+        System.out.println(PURPLE + "\n╔═════════════════════════════╗" + RESET);
+        System.out.println(PURPLE + "║     REGISTRAR NUEVO EVENTO  ║" + RESET);
+        System.out.println(PURPLE + "╚═════════════════════════════╝" + RESET);
 
         System.out.print("Título del evento: ");
         String titulo = scanner.nextLine();
@@ -104,13 +112,13 @@ public class calendario {
         String tipo = scanner.nextLine();
 
         try {
-            System.out.print("Fecha de entrega (Día): ");
+            System.out.print("Día (1-31): ");
             int dia = Integer.parseInt(scanner.nextLine());
 
-            System.out.print("Fecha de entrega (Mes): ");
+            System.out.print("Mes (1-12): ");
             int mes = Integer.parseInt(scanner.nextLine());
 
-            System.out.print("Fecha de entrega (Año): ");
+            System.out.print("Año: ");
             int anio = Integer.parseInt(scanner.nextLine());
 
             System.out.print("Hora (0-23): ");
@@ -123,7 +131,7 @@ public class calendario {
             LocalDateTime ahora = LocalDateTime.now();
 
             if (fechaEvento.isBefore(ahora.truncatedTo(ChronoUnit.MINUTES))) {
-                System.out.println("\n ¡ADVERTENCIA! La fecha ingresada (" + fechaEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ") ya pasó.");
+                System.out.println(RED + "\n⚠ ¡ADVERTENCIA! La fecha ingresada ya pasó." + RESET);
                 System.out.println("El evento no se registrará.");
             } else {
                 titulosEventos[contadorEventos] = titulo;
@@ -135,68 +143,64 @@ public class calendario {
                 minutosEventos[contadorEventos] = minuto;
 
                 contadorEventos++;
-                System.out.println("\n Evento registrado con éxito.");
+                System.out.println(GREEN + "\n✔ Evento registrado con éxito." + RESET);
             }
-        } catch (NumberFormatException e) {
-            System.out.println("\n Error al ingresar datos numéricos (Día/Mes/Año/Hora/Minuto). El evento no se guardó.");
-        } catch (DateTimeException e) {
-            System.out.println("\n Error: La fecha ingresada no es válida (ej. Día 30 en Febrero). El evento no se guardó.");
+
+        } catch (Exception e) {
+            System.out.println(RED + "\nError: Datos inválidos. Intente de nuevo." + RESET);
         }
+
         esperarTecla();
     }
 
-
     public static void verificarYMostrarEventos() {
         limpiarPantalla();
-        System.out.println("--- EVENTOS REGISTRADOS ---");
+        System.out.println(CYAN + "\n──── EVENTOS REGISTRADOS ────" + RESET);
 
         if (contadorEventos == 0) {
-            System.out.println("No hay eventos registrados.");
+            System.out.println(YELLOW + "No hay eventos registrados." + RESET);
             esperarTecla();
             return;
         }
 
-        LocalDateTime ahoraMismo = LocalDateTime.now();
-        int eventosEliminados = 0;
+        LocalDateTime ahora = LocalDateTime.now();
+        int eliminados = 0;
 
         int i = 0;
         while (i < contadorEventos) {
             try {
-                LocalDateTime fechaEvento = LocalDateTime.of(aniosEventos[i], mesesEventos[i], diasEventos[i], horasEventos[i], minutosEventos[i]);
+                LocalDateTime fechaEvento = LocalDateTime.of(
+                        aniosEventos[i], mesesEventos[i], diasEventos[i],
+                        horasEventos[i], minutosEventos[i]);
 
-                if (fechaEvento.isBefore(ahoraMismo.truncatedTo(ChronoUnit.MINUTES))) {
+                System.out.println(YELLOW + "\n──────────────────────────────" + RESET);
+                System.out.println("Título: " + BLUE + titulosEventos[i] + RESET);
+                System.out.println("Tipo: " + tiposEventos[i]);
+                System.out.println("Fecha: " + fechaEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 
-                    System.out.println("----------------------------");
-                    System.out.println("Título: " + titulosEventos[i]);
-                    System.out.println("Fecha: " + fechaEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-                    System.out.println("🗑️ ESTADO: ¡El evento ya pasó! Eliminando del registro.");
+                if (fechaEvento.isBefore(ahora.truncatedTo(ChronoUnit.MINUTES))) {
 
+                    System.out.println(RED + "🗑 ESTADO: ¡Evento ya pasado! Eliminando..." + RESET);
                     eliminarEvento(i);
-                    eventosEliminados++;
+                    eliminados++;
 
                 } else {
-                    System.out.println("----------------------------");
-                    System.out.println("Título: " + titulosEventos[i]);
-                    System.out.println("Tipo: " + tiposEventos[i]);
-                    System.out.println("Fecha límite: " + fechaEvento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-
-
-                    calcularCuentaRegresiva(ahoraMismo, diasEventos[i], mesesEventos[i], aniosEventos[i], horasEventos[i], minutosEventos[i]);
+                    calcularCuentaRegresiva(ahora, diasEventos[i], mesesEventos[i],
+                            aniosEventos[i], horasEventos[i], minutosEventos[i]);
                     i++;
                 }
+
             } catch (Exception e) {
-                System.out.println(">> ERROR al procesar evento en índice " + i + ". Eliminando.");
                 eliminarEvento(i);
-                eventosEliminados++;
+                eliminados++;
             }
         }
 
-        if (eventosEliminados > 0) {
-            System.out.println("\nSe eliminaron " + eventosEliminados + " eventos pasados.");
-        }
+        if (eliminados > 0)
+            System.out.println(RED + "\nSe eliminaron " + eliminados + " eventos caducados." + RESET);
+
         esperarTecla();
     }
-
 
     public static void eliminarEvento(int indice) {
         if (indice < 0 || indice >= contadorEventos) return;
@@ -211,25 +215,23 @@ public class calendario {
             minutosEventos[k] = minutosEventos[k + 1];
         }
 
-        titulosEventos[contadorEventos - 1] = null;
-
         contadorEventos--;
     }
 
-
-    public static void calcularCuentaRegresiva(LocalDateTime fechaActual, int diaB, int mesB, int anioB, int horaB, int minutoB) {
+    public static void calcularCuentaRegresiva(LocalDateTime ahora, int dia, int mes, int anio, int hora, int minuto) {
         try {
-            LocalDateTime fechaEvento = LocalDateTime.of(anioB, mesB, diaB, horaB, minutoB);
-            Duration duracion = Duration.between(fechaActual, fechaEvento);
+            LocalDateTime fechaEvento = LocalDateTime.of(anio, mes, dia, hora, minuto);
+            Duration duracion = Duration.between(ahora, fechaEvento);
 
-            long dias = duracion.toDays();
-            long horas = duracion.toHoursPart();
-            long minutos = duracion.toMinutesPart();
-
-            System.out.println(">> FALTAN: " + dias + " días, " + horas + " horas, " + minutos + " minutos.");
+            System.out.println(GREEN +
+                    " Faltan: " +
+                    duracion.toDays() + " días, " +
+                    duracion.toHoursPart() + " horas, " +
+                    duracion.toMinutesPart() + " minutos." +
+                    RESET);
 
         } catch (Exception e) {
-            System.out.println(">> ERROR: Fecha inválida. No se pudo calcular la cuenta regresiva.");
+            System.out.println(RED + "Error en el cálculo de la cuenta regresiva." + RESET);
         }
     }
 
