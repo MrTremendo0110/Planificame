@@ -64,7 +64,7 @@ public class registro {
             nombre = scanner.next();
 
             if (nombre.isEmpty()) {
-                System.out.println(ANSI_PURPLE + "✘ Error: No ha escrito nada, vuelva a intentarlo." + ANSI_RESET);
+                System.out.println(ANSI_PURPLE + " Error: No ha escrito nada, vuelva a intentarlo." + ANSI_RESET);
             } else {
                 return nombre;
             }
@@ -77,7 +77,7 @@ public class registro {
             edad = scanner.nextInt();
 
             if (edad < 13 || edad > 21) {
-                System.out.println(ANSI_PURPLE + "✘ Error: Edad fuera del rango permitido." + ANSI_RESET);
+                System.out.println(ANSI_PURPLE + " Error: Edad fuera del rango permitido." + ANSI_RESET);
             } else {
                 return edad;
             }
@@ -90,7 +90,7 @@ public class registro {
             semestre = scanner.nextInt();
 
             if (semestre < 1 || semestre > 6) {
-                System.out.println(ANSI_PURPLE + "✘ Error: Semestre fuera del rango permitido." + ANSI_RESET);
+                System.out.println(ANSI_PURPLE + " Error: Semestre fuera del rango permitido." + ANSI_RESET);
             } else {
                 return semestre;
             }
@@ -105,7 +105,7 @@ public class registro {
             if (!turnoEsc.equalsIgnoreCase("matutino") &&
                     !turnoEsc.equalsIgnoreCase("vespertino") &&
                     !turnoEsc.equalsIgnoreCase("despertino")) { // por si querías aceptar tu versión
-                System.out.println(ANSI_PURPLE + "✘ Error: Turno inválido, escriba matutino o vespertino." + ANSI_RESET);
+                System.out.println(ANSI_PURPLE + " Error: Turno inválido, escriba matutino o vespertino." + ANSI_RESET);
             } else {
                 return turnoEsc.toLowerCase();
             }

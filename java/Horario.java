@@ -37,13 +37,27 @@ public class Horario {
             System.out.println("4.- Salir");
             System.out.print(ANSI_RESET + "Seleccione una opción: ");
 
-            int opcOp = scanner.nextInt();
-            scanner.nextLine();
+            int opcOp;
+
+
+            if (!scanner.hasNextInt()) {
+                System.out.println(ANSI_RED + "Entrada inválida. Debe ser un número." + ANSI_RESET);
+                scanner.next();
+                continue;
+            }
+
+            opcOp = scanner.nextInt();
 
             switch (opcOp) {
-                case 1: regHorEsc(); break;
-                case 2: regActExt(); break;
-                case 3: verHorarioCompleto(); break;
+                case 1:
+                    regHorEsc();
+                    break;
+                case 2:
+                    regActExt();
+                    break;
+                case 3:
+                    verHorarioCompleto();
+                    break;
                 case 4:
                     System.out.println(ANSI_GREEN + "Saliendo..." + ANSI_RESET);
                     return;

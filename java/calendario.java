@@ -101,7 +101,7 @@ public class calendario {
             return;
         }
 
-        System.out.println(PURPLE + "\n╔═════════════════════════════╗" + RESET);
+        System.out.println(PURPLE + "╔═════════════════════════════╗" + RESET);
         System.out.println(PURPLE + "║     REGISTRAR NUEVO EVENTO  ║" + RESET);
         System.out.println(PURPLE + "╚═════════════════════════════╝" + RESET);
 
