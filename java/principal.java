@@ -1,7 +1,13 @@
 import java.util.Scanner;
 
+/* =========================================================
+   Modulo Principal
+   Controla el flujo y contiene el menú del programa
+   ========================================================= */
+
 public class principal {
 
+    // Constantes para el color de letra en la consola
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -10,12 +16,13 @@ public class principal {
 
     public static void main(String[] args) {
 
+        // Llamada al módulo de registro
         registro.main();
 
         Scanner sc = new Scanner(System.in);
         boolean continuar = true;
 
-        // Inicio del bucle
+        // Inicio del bucle del menu
         while (continuar) {
 
             // Decoración del título en ASCII
@@ -28,7 +35,7 @@ public class principal {
                     "╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░╚═════╝░  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚════╝░╚═╝╚═╝░░░░░╚═╝░░╚═╝╚══════╝\n" +
                     ANSI_RESET);
 
-            // Crear el cuadro con las opciones centradas
+            // Crear el cuadro con las opciones disponibles del programa
             String opciones = "\n" +
                     "  ****************************  \n" +
                     "  *   1. Horario              *  \n" +
@@ -47,11 +54,11 @@ public class principal {
                 System.out.println(paddedLine);
             }
 
-            // Solicitar opción
+            // Solicitar opción del menú
             System.out.print(ANSI_CYAN + "Seleccione una opción: " + ANSI_RESET);
             String opcion = sc.next();
 
-            // Lógica de opciones
+            // Condicional switch para las opciones del menú, mandando a llamar al módulo correspondiente
             switch (opcion) {
                 case "1":
                     Horario.main();
@@ -65,7 +72,8 @@ public class principal {
                 case "4":
                     alumno.main();
                     break;
-                default:
+                default:   
+		// Si no se selecciona ninguna de las opciones anteriores el programa finaliza
                     System.out.println(ANSI_RED + "Saliendo del sistema. ¡Hasta luego!" + ANSI_RESET);
                     continuar = false;
                     break;

@@ -1,8 +1,14 @@
 import java.util.*;
 
+/* =========================================================
+   MÓDULO HORARIO
+   Gestiona materias y actividades extracurriculares
+   ========================================================= */
+
 public class Horario {
     static Scanner scanner = new Scanner(System.in);
 
+    // Variables globales para el color de letra en la consola
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -10,6 +16,7 @@ public class Horario {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_CYAN = "\u001B[36m";
 
+    // Arreglos para materias y horarios
     static String[] matEsc;
     static String[][] matHorEnt;
     static String[][] matHorSal;
@@ -19,7 +26,7 @@ public class Horario {
     static String[][] actHorSal;
 
     public static void main() {
-        // Título decorado
+        // Título decorado en formato ASCII
         System.out.println(ANSI_PURPLE +
                 "██╗░░██╗░█████╗░██████╗░░█████╗░██████╗░██╗░█████╗░\n" +
                 "██║░░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗\n" +
@@ -30,6 +37,8 @@ public class Horario {
                 ANSI_RESET);
 
         while (true) {
+
+            // Menú del módulo
             System.out.println(ANSI_YELLOW + "\n=== MENÚ PRINCIPAL DE HORARIO ===");
             System.out.println("1.- Registro de horario escolar");
             System.out.println("2.- Registro de actividades extracurriculares");
@@ -39,13 +48,14 @@ public class Horario {
 
             int opcOp;
 
-
+            // Error en caso de que la entrada de datos sea inválida
             if (!scanner.hasNextInt()) {
                 System.out.println(ANSI_RED + "Entrada inválida. Debe ser un número." + ANSI_RESET);
                 scanner.next();
                 continue;
             }
 
+            // Control de opciones
             opcOp = scanner.nextInt();
 
             switch (opcOp) {
@@ -67,7 +77,7 @@ public class Horario {
         }
     }
 
-    // Registro de materias
+    // Registro de materias escolares
     public static void regHorEsc() {
         System.out.println(ANSI_YELLOW + "Haz seleccionado el registro de horario escolar." + ANSI_RESET);
         System.out.print("¿Cuántas materias está cursando? ");
@@ -80,18 +90,21 @@ public class Horario {
 
         String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
 
-        for (int x = 0; x < numMat; x++) {
+        // Lógica para la captura de los datos
+        for (int x = 0; x < numMat; x++) { // Siempre que x sea menor al número de materias se ejecutará este bucle
             System.out.print("Ingrese el nombre de la materia " + (x + 1) + ": ");
             matEsc[x] = scanner.nextLine();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++) { // En el mismo bucle anterior, siempre que i sea menor a 5 (parea cada día de la semana sin contar sabado ni domingo) se ejecutará este bucle
                 System.out.print("¿La materia \"" + matEsc[x] + "\" se cursa el " + dias[i] + "? (s/n) ");
                 String respuesta = scanner.nextLine().trim().toLowerCase();
 
                 if (respuesta.equals("s")) {
+			// Se registran los datos de entrada y salida llamando la función "obtenerHora" posteriormente definida, dentro del número de día (i) de la semana
+			// La variable x se refiere a la materia y la variable i al día de la semana, los datos se almacenan en un arreglo bidimensional (matHorEnt y matHorSal)
                     matHorEnt[x][i] = obtenerHora("entrada", dias[i]);
                     matHorSal[x][i] = obtenerHora("salida", dias[i]);
-                } else {
+                } else { // En caso de que la respuesta sea negativa el valor "No se encuentra" se almacena en dicho día (i)
                     matHorEnt[x][i] = "No se encuentra";
                     matHorSal[x][i] = "No se encuentra";
                 }
@@ -114,18 +127,22 @@ public class Horario {
 
         String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
 
-        for (int x = 0; x < numAct; x++) {
+        // Lógica para la captura de los datos
+        for (int x = 0; x < numAct; x++) { // Siempre que x sea menor al número de actividades se ejecutará este bucle
             System.out.print("Ingrese el nombre de la actividad " + (x + 1) + ": ");
             actExt[x] = scanner.nextLine();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++) { // En el mismo bucle anterior, siempre que i sea menor a 5 (parea cada día de la semana sin contar sabado ni domingo) se ejecutará este bucle
+
                 System.out.print("¿La actividad \"" + actExt[x] + "\" se realiza el " + dias[i] + "? (s/n) ");
                 String respuesta = scanner.nextLine().trim().toLowerCase();
 
                 if (respuesta.equals("s")) {
+		// Se registran los datos de entrada y salida llamando la función "obtenerHora" posteriormente definida, dentro del número de día (i) de la semana
+		// La variable x se refiere a la materia y la variable i al día de la semana, los datos se almacenan en un arreglo bidimensional (matHorEnt y matHorSal)
                     actHorEnt[x][i] = obtenerHora("entrada", dias[i]);
                     actHorSal[x][i] = obtenerHora("salida", dias[i]);
-                } else {
+                } else { // En caso de que la respuesta sea negativa el valor "No se encuentra" se almacena en dicho día (i)
                     actHorEnt[x][i] = "No se encuentra";
                     actHorSal[x][i] = "No se encuentra";
                 }
@@ -142,7 +159,7 @@ public class Horario {
             System.out.print("Ingrese la hora de " + tipo + " (HH:mm) para " + dia + ": ");
             hora = scanner.nextLine();
 
-            if (hora.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
+            if (hora.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {  // Se valida que el formato de hora sea el adecuado
                 return hora;
             }
 
